@@ -1,0 +1,52 @@
+ion-content ion-toolbar {
+	--background: translucent;
+  }
+
+  .selecthome{
+	color: #000000b9;
+	font-size: 12px;
+	text-align: start;
+  }
+  .countrytxt{
+	color: #000000;
+	font-size: 15px;
+	text-align: center;
+  }
+ 
+  .cell-class {
+	border-color: #f5d0d0; 
+	border-width: 1px; 
+	border-style:dashed; 
+	text-align: center;
+	
+  }
+ 
+  .first-cell-class {
+	border-color: #f5d0d0; 
+	vertical-align: bottom;	
+	object-position: bottom;
+	
+  }
+  .totaltest{
+	color: #011f01;
+	font-size: 10px;
+	text-align: center;
+  }
+  .image{
+	width: 50px;
+	height: 50px;
+	vertical-align: bottom;
+	object-position: bottom;
+  }
+  body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+  
+  #chartdiv {
+	width: 100%;
+	height: 200px;
+	border-color: #f5d0d0; 
+	border-width: 1px; 
+	border-style:dashed; 
+	text-align: center;
+  }

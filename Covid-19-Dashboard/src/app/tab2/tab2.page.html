@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{pageTitle}} {{ now}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid class="cell-class">
+    <!-- select country -->
+    <ion-row *ngIf="casesCountry!=null"> 
+      <ion-col class="first-cell-class" size="2">
+        <ion-img class="image" *ngIf="casesCountry.countryInfo!=null" class="image" src="{{casesCountry.countryInfo.flag}}" ></ion-img>
+      </ion-col>
+      <ion-col >
+        <ion-searchbar [(ngModel)]="searchQuery" (click)="click_bar()" (ionCancel)="onCancel($event)" inputmode="search"
+          (ngModelChange)="change_query_input($event)" (search)="change_query(searchQuery)" showCancelButton="focus" 
+          placeholder="Search for country (TN:Tunisia,MA:Maroc,DZ:Algeria, ..)"></ion-searchbar>
+        <ion-select name="countrySelect" [(ngModel)]="currentcountry" [compareWith]="compareById"
+          (ionChange)="selectChanged(currentcountry)">
+          <ion-select-option *ngFor="let country of countries_to_show" [value]="country">{{ country.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div id="chartdiv"></div>
+    <!--fin  select country -->
+  <ion-grid>
+    <ion-row *ngIf="casesCountry!=null">
+      <ion-col class="cell-class">
+        <ion-label class="countrytxt"> {{casesCountry.country}} ({{ now}})<br>
+        </ion-label>
+        <ion-label class="selecthome"> Active cases :{{casesCountry.active|number}}</ion-label>
+        <ion-label class="selecthome"><br> Total Cases : {{casesCountry.cases|number}} 
+          <br> New cases : {{casesCountry.todayCases|number}} / {{casesCountry.todayTests|number}} Tests
+          <br> New death : {{casesCountry.todayDeaths|number}} <br> Total Deaths: {{casesCountry.deaths|number}}
+          <br> Total Recovered: {{casesCountry.recovered|number}}</ion-label>
+          <br> <ion-label class="totaltest"> Total Tests :{{casesCountry.tests|number}}<br></ion-label>
+      </ion-col>
+      <!-- diff compare yesterday -->
+      <ion-col class="cell-class">
+              <ion-label class="countrytxt"> Compared to yesterday {{yesterday}}<br></ion-label>
+              <ion-label class="selecthome">
+                <br> New Cases : {{currentCasesService.displayNumber(casesCountry.diffCases)}} 
+                <br> New Deaths : {{currentCasesService.displayNumber(casesCountry.diffDeaths)}} 
+                <br> New Recovered : {{currentCasesService.displayNumber(casesCountry.todayRecovered)}}
+              </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="cell-class" size="4" *ngFor="let cases of cases.features">
+        <ion-label class="countrytxt"> {{cases.attributes.gouvernora}}<br></ion-label>
+        <ion-label class="selecthome"><br> Total Cases : {{cases.attributes.Nb_cas}} <br>
+          Deaths: {{cases.attributes.Nb_deces}}
+          <br> Total Recovered: {{cases.attributes.Nb_retablis}}</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- ion-fab markup  -->
+</ion-content>

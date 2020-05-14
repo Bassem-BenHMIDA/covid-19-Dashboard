@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Coronavirus situation {{ now}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid class="cell-class">
+    <ion-row class="div-style">
+      <ion-col>
+        <div >Order By</div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <ion-select name="filterSelect" [(ngModel)]="currentfilter" [compareWith]="compareById"
+            (ionChange)="selectChanged(currentfilter,currentOrderBy)">
+            <ion-select-option *ngFor="let filter of filterList" [value]="filter">{{filter.description }}
+            </ion-select-option>
+          </ion-select>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <ion-select name="orderBySelect" [(ngModel)]="currentOrderBy" [compareWith]="compareById"
+            (ionChange)="selectChanged(currentfilter,currentOrderBy)">
+            <ion-select-option *ngFor="let orderBy of orderByList" [value]="orderBy">{{orderBy.description }}
+            </ion-select-option>
+          </ion-select>
+
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="cell-class" size="4" *ngFor="let cases of cases">
+        <ion-label class="countrytxt"> {{cases.country}}<br></ion-label>
+        <ion-label class="countrytxt">{{currentCasesService.convertDate(cases.updated)}}<br></ion-label>
+
+        <ion-label class="selecthome"> Active cases :{{cases.active}}</ion-label>
+        <ion-img class="image" src="{{ cases.countryInfo.flag }}"></ion-img>
+        <ion-label class="selecthome"><br> Total Cases : {{cases.cases |number}} <br> New cases :
+          {{cases.todayCases|number}}
+          <br> New death : {{cases.todayDeaths|number}} <br> Total Deaths: {{cases.deaths|number}}
+          <br> Total Recovered: {{cases.recovered|number}}</ion-label>
+          <br> <ion-label class="totaltest"> Total Tests :{{cases.tests|number}}<br></ion-label>
+     </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- ion-fab markup  -->
+</ion-content>

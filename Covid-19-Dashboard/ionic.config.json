@@ -1,0 +1,8 @@
+{
+  "name": "Covid-Dashboard",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}
